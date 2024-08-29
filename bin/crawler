@@ -9,10 +9,11 @@ wget \
   --random-wait \
   -r -l2 \
   --no-parent \
-  -R bmp,css,doc,docx,gif,jpeg,jpg,JPG,webp,js,map,pdf,PDF,png,ppt,pptx,svg,ts,txt,xls,xlsx,xml \
+  -R bmp,css,doc,docx,gif,jpeg,jpg,JPG,webp,js,map,pdf,PDF,png,ppt,pptx,svg,ts,txt,xls,xlsx,xml,txt \
   -o - \
   $url |
-  grep -oE 'http(s?)://(\w|:|%|#|\$|&|\?|\(|\)|~|\.|=|\+|\-|/)+' | sort -u
+  grep --line-buffered -A 1 '^Spider mode enabled. Check if remote file exists.' |
+  grep -oE 'http(s?)://(\w|:|%|#|\$|&|\?|\(|\)|~|\.|=|\+|\-|/)+'
 
   #-A acclist --accept acclist
   #-R rejlist --reject rejlist
