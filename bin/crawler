@@ -1,7 +1,18 @@
 #!/bin/bash
 
-wget --spider --force-html --span-hosts \
+url=${1:-https://example.com/}
+
+wget \
+  --spider \
   --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" \
-  -np --limit-rate=20k -e robots=off --wait=3 --random-wait -r -l2 \
-  https://example.com/
-  #-o wget.log
+  --wait=1 \
+  --random-wait \
+  -r -l2 \
+  --no-parent \
+  -R bmp,css,doc,docx,gif,jpeg,jpg,JPG,webp,js,map,pdf,PDF,png,ppt,pptx,svg,ts,txt,xls,xlsx,xml \
+  -o - \
+  $url |
+  grep -oE 'http(s?)://(\w|:|%|#|\$|&|\?|\(|\)|~|\.|=|\+|\-|/)+' | sort -u
+
+  #-A acclist --accept acclist
+  #-R rejlist --reject rejlist
