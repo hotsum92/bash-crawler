@@ -1,17 +1,19 @@
 #!/bin/bash
 
 url=${1:-https://example.com/}
+regex=${2:-''}
 
 wget \
   --spider \
   --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" \
   --wait=1 \
   --random-wait \
-  -r -l2 \
+  -r \
   --no-parent \
+  --accept-regex "$regex" \
   -R bmp,css,doc,docx,gif,jpeg,jpg,JPG,webp,js,map,pdf,PDF,png,ppt,pptx,svg,ts,txt,xls,xlsx,xml,txt \
   -o - \
-  $url |
+  "$url" |
   grep --line-buffered -A 1 '^Spider mode enabled. Check if remote file exists.' |
   grep -oE 'http(s?)://(\w|:|%|#|\$|&|\?|\(|\)|~|\.|=|\+|\-|/)+'
 
