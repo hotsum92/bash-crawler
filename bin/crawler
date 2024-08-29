@@ -2,11 +2,12 @@
 
 url=${1:-https://example.com/}
 regex=${2:-''}
+wait=${3:-1}
 
 wget \
   --spider \
   --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" \
-  --wait=1 \
+  --wait="$wait" \
   --random-wait \
   -r \
   --no-parent \
